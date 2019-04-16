@@ -1,24 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import './assets/fonts/iransans-fonts/fonts.css';
+import './assets/icons/font/flaticon.css';
 import './index.css';
-import App from './App';
+
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import ProjectsList from './components/project/ProjectsList';
+
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
-ReactDOM.render(
-    // <Router>
-    //     <Route exact path="/" component={Home} />
 
-    // </Router>,
-    // document.getElementById('root')
-    <div>
+axios.defaults.baseURL = 'http://localhost:8080/';
+
+ReactDOM.render(
+    <React.Fragment>
         <Header/>
-        <Router>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/user" component={UserProfile} />
-            <Route exact path="/project" component={ProjectDetail} />
-        </Router>,
+        <div style={{paddingTop: 70}}>
+            <Router>
+                <Route exact path="/project" component={ProjectsList} />
+            </Router>
+        </div>
         <Footer/>
-    </div>, document.getElementById('root')
+    </React.Fragment>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

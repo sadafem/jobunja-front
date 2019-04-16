@@ -1,0 +1,1 @@
+export { persianNumberHumanize } from './persianize';

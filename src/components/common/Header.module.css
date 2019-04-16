@@ -1,0 +1,13 @@
+.container {
+    background: white;
+    box-shadow: 0 0 7px #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.logo {
+    width: 150px;
+}

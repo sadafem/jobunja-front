@@ -1,0 +1,30 @@
+.headerDescription {
+    padding-right: 10px;
+}
+
+.searchContainer {
+    background-color: #ffffff77;
+    max-width: 800px;
+    margin: 40px auto 0;
+    border-bottom: 3px solid #4daabc;
+    padding: 5px;
+    font-size: 22px;
+    position: relative;
+}
+
+.searchInput {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: calc(100% - 110px);
+}
+
+.searchSubmitButton {
+    background-color: #4daabc;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 10px 20px;
+    color: white;
+}
