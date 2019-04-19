@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 import styles from './HomeProjectBox.module.css';
 
@@ -8,9 +10,10 @@ class HomeProjectBox extends React.Component<Props> {
 
     render() {
         const { project } = this.props;
+        project.deadline *= 1000;
 
         return (
-            <div className={styles.container}>
+            <Link to={`/project/${project.id}`}  className={classNames(styles.container, styles.expired)}>
                 <div className="d-flex">
                     <div>
                         <img src={project.imageUrl} className={styles.image} />
@@ -36,12 +39,26 @@ class HomeProjectBox extends React.Component<Props> {
                                 </div>
                             ))}
                         </div>
-                        <div className={styles.remainingTime}>
-                            زمان باقی‌مانده:
-                        </div>
+                        {project.deadline < Date.now()
+                            ? (
+                                <div className={styles.remainingTime}>
+                                    مهلت تمام شده
+                                </div>
+                            )
+                            : (
+                                <div className={styles.remainingTime}>
+                                    زمان باقی‌مانده:{' '}
+                                    {Math.floor((project.deadline - Date.now()) / (1000 * 60 * 60 * 24))}
+                                    :
+                                    {Math.floor((project.deadline - Date.now()) / (1000 * 60 * 60) % 24)}
+                                    :
+                                    {Math.floor((project.deadline - Date.now()) / (1000 * 60) % 60)}
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
-            </div>
+            </Link>
         );
     }
 }

@@ -1,5 +1,8 @@
-body {
+html {
   font-size: 16px;
+}
+
+body {
   text-align: right;
   direction: rtl;
   background: #b9eef2;
