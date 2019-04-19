@@ -25,15 +25,15 @@ ReactDOM.render(
         <ToastContainer
             rtl={true}
         />
-        <Header/>
         <div style={{paddingTop: 70}}>
             <Router>
+                <Header/>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/user" component={User} />
                 <Route exact path="/user/:userId" component={User} />
+                <Footer/>
             </Router>
         </div>
-        <Footer/>
     </React.Fragment>,
     document.getElementById('root')
 );

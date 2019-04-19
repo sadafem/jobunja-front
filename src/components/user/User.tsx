@@ -90,6 +90,9 @@ class User extends React.Component<Props, State> {
     }
 
     removeSkill = (skillName: string) => {
+        if ((this.props.match.params.userId || '1') !== '1') {
+            return;
+        }
         axios
             .post(
                 '/api/user/skill/delete',

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import headerLogo from '../../assets/logo/logo v1.png';
 
@@ -15,9 +16,9 @@ class Header extends React.Component {
                             <img src={headerLogo} className={styles.logo} />
                         </div>
                         <div className="col-6 text-left d-flex align-items-center justify-content-end">
-                            <a className="link" href="/user">
+                            <Link className="link" to="/user">
                                 حساب کاربری
-                            </a>
+                            </Link>
                             <a className="link margin-right-xl" href="/logout">
                                 خروج
                             </a>
