@@ -36,6 +36,9 @@ class User extends React.Component<Props, State> {
             })
             .catch(err => {
                 console.error(err);
+                toast.error('دریافت اطلاعات با خطا مواجه شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
             });
     }
 
@@ -51,6 +54,9 @@ class User extends React.Component<Props, State> {
             })
             .catch(err => {
                 console.error(err);
+                toast.error('دریافت اطلاعات با خطا مواجه شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
             });
     }
 
@@ -89,10 +95,16 @@ class User extends React.Component<Props, State> {
             })
     }
 
-    removeSkill = (skillName: string) => {
-        if ((this.props.match.params.userId || '1') !== '1') {
-            return;
+    handleSkillClick = (skillName: string) => {
+        if ((this.props.match.params.userId || '1') === '1') {
+            this.removeSkill(skillName);
         }
+        else {
+            this.endorseSkill(skillName);
+        }
+    }
+
+    removeSkill = (skillName: string) => {
         axios
             .post(
                 '/api/user/skill/delete',
@@ -116,7 +128,44 @@ class User extends React.Component<Props, State> {
                 toast.error('حذف مهارت با خطا مواجه شد!', {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
+            });
+    }
+
+    endorseSkill = (skillName: string) => {
+        axios
+            .post(
+                '/api/user/skill/endorse',
+                `userId=${this.props.match.params.userId}&skillName=${skillName}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            )
+            .then(res => {
+                console.log(res.data);
+                const user = this.state.user!;
+                const skill = user.skills.find(skill => skill.name === skillName);
+                if (skill) {
+                    skill.point++;
+                }
+                this.setState({
+                    user,
+                });
             })
+            .catch(err => {
+                if (err.response.status === 403) {
+                    toast.info('شما قبلا به این مهارت امتیاز داده اید!', {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+                else {
+                    console.error(err);
+                    toast.error('امتیازدهی با خطا مواجه شد!', {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+            });
     }
 
     render() {
@@ -175,7 +224,8 @@ class User extends React.Component<Props, State> {
                                                 key={skill.name}
                                                 skill={skill}
                                                 removable={(this.props.match.params.userId || '1') === '1'}
-                                                onClick={() => this.removeSkill(skill.name)}
+                                                endorsable={(this.props.match.params.userId || '1') !== '1'}
+                                                onClick={() => this.handleSkillClick(skill.name)}
                                             />
                                         ))}
                                     </div>    

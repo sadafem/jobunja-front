@@ -30,10 +30,16 @@
     color: white;
 }
 
-.skillContainer.removable {
+.skillContainer.removable,
+.skillContainer.endorsable {
     cursor: pointer;
 }
 .skillContainer.removable:hover .skillPoint {
     background-color: red;
+    color: white;
+}
+
+.skillContainer.endorsable:hover .skillPoint {
+    background-color: green;
     color: white;
 }

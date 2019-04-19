@@ -9,6 +9,7 @@ class SkillBox extends React.Component<Props, State> {
         const {
             skill,
             removable,
+            endorsable,
             ...other
         } = this.props;
 
@@ -18,6 +19,7 @@ class SkillBox extends React.Component<Props, State> {
                     classNames({
                         [styles.skillContainer]: true,
                         [styles.removable]: removable,
+                        [styles.endorsable]: endorsable,
                     })
                 }
                 {...other}
@@ -34,6 +36,7 @@ class SkillBox extends React.Component<Props, State> {
 interface Props {
     skill: Skill,
     removable?: boolean,
+    endorsable?: boolean,
     [name: string]: any,
 }
 
