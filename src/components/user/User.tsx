@@ -1,80 +1,185 @@
-import React, { Component } from 'react'
-import './User.module.css'
-export default class User extends Component<Props, State> {
+import React from 'react';
+import axios from 'axios';
+import classNames from 'classnames';
+import { toast } from 'react-toastify';
+
+import styles from './User.module.css';
+import SkillBox from '../common/SkillBox';
+
+class User extends React.Component<Props, State> {
+
+    skillInput = React.createRef<HTMLSelectElement>();
+
     constructor(props: Props) {
         super(props);
 
         this.state = {
+            user: null,
+            skillNames: null,
         };
     }
+
+    componentDidMount() {
+        this.fetchUser();
+        this.fetchSkills();
+    }
+
+    fetchUser() {
+        axios
+            .get(`/user/${this.props.match.params.userId || 1}`)
+            .then(res => {
+                console.log('user');
+                console.log(res.data);
+                this.setState({
+                    user: res.data,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
+    fetchSkills() {
+        axios
+            .get('/skill')
+            .then(res => {
+                console.log('skillNames');
+                console.log(res.data);
+                this.setState({
+                    skillNames: res.data,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
+    addSkill = () => {
+        const skillName = this.skillInput.current!.value;
+        if (!skillName) {
+            return;
+        }
+
+        axios
+            .post(
+                '/api/user/skill/add',
+                `skillName=${skillName}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            )
+            .then(res => {
+                console.log(res.data);
+                const user = this.state.user!;
+                user.skills.push({
+                    name: skillName,
+                    point: 0,
+                });
+                this.setState({
+                    user,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                toast.error('اضافه کردن مهارت با خطا مواجه شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            })
+    }
+
+    removeSkill = (skillName: string) => {
+        axios
+            .post(
+                '/api/user/skill/delete',
+                `skillName=${skillName}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            )
+            .then(res => {
+                console.log(res.data);
+                const user = this.state.user!;
+                user.skills = user.skills.filter(skill => skill.name !== skillName);
+                this.setState({
+                    user,
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                toast.error('حذف مهارت با خطا مواجه شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            })
+    }
+
     render() {
+        const {
+            user,
+            skillNames,
+        } = this.state;
+
         return (
             <React.Fragment>
-                <div id="content-background">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-3">
-                                <div id="user-img-container">
-                                    <img src="http://www.ieeeaustsb.org/files/2017/05/placeholder-male-square.png" id="user-img"/>
-                                </div>
-                            </div>
-                            <div className="col-9 margin-top-lg">
-                                <div className="size-xl font-weight-bold">محمدرضا کیانی</div>
-                                <div className="margin-top-sm size-md color-gray">اعلی حضرت</div>
-                            </div>
-                            <div className="col-12 margin-top-lg">
-                                <p className="text-justify">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می‌باشد.
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می‌باشد.
-                                </p>
-                            </div>
-                            <div className="col-12 margin-top-lg">
-                                <span className="size-xl font-weight-bold">مهارت‌ها:</span>
-                                <div id="new-skill-container" className="margin-right-lg">
-                                    <select id="new-skill-select">
-                                        <option value="1">-- انتخاب مهارت --</option>
-                                        <option value="HTML">HTML</option>
-                                        <option value="CSS">CSS</option>
-                                        <option value="JavaScript">JavaScript</option>
-                                        <option value="TypeScript">TypeScript</option>
-                                    </select>
-                                    <div className="button">
-                                        افزودن مهارت
+                <div className={styles.contentBackground}>
+                    {user === null
+                        ? 'LOADING...'
+                        : (
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-3">
+                                        <div className={styles.imageContainer}>
+                                            <img src={user.profilePictureUrl || 'http://www.ieeeaustsb.org/files/2017/05/placeholder-male-square.png'} className={styles.image}/>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="col-12 text-left ltr margin-top-lg">
-                                <div className="skill-container">
-                                    HTML
-                                    <div className="skill-point success">+</div>
-                                </div>
-                                <div className="skill-container">
-                                    HTML
-                                    <div className="skill-point">5</div>
-                                </div>
-                                <div className="skill-container">
-                                    CSS
-                                    <div className="skill-point">3</div>
-                                </div>
-                                <div className="skill-container">
-                                    CSS
-                                    <div className="skill-point success">3</div>
-                                </div>
-                                <div className="skill-container">
-                                    JavaScript
-                                    <div className="skill-point">16</div>
-                                </div>
-                                <div className="skill-container">
-                                    TypeScript
-                                    <div className="skill-point">2</div>
-                                </div>
-                                <div className="skill-container">
-                                    TypeScript
-                                    <div className="skill-point error">-</div>
-                                </div>
+                                    <div className="col-9 margin-top-lg">
+                                        <div className="size-xl font-weight-bold">
+                                            {user.firstName}{' '}{user.lastName}
+                                        </div>
+                                        <div className="margin-top-sm size-md color-gray">
+                                            {user.jobTitle}
+                                        </div>
+                                    </div>
+                                    <div className="col-12 margin-top-lg">
+                                        <p className="text-justify">
+                                            {user.bio}
+                                        </p>
+                                    </div>
+                                    {skillNames && (this.props.match.params.userId || '1') === '1' && (
+                                        <div className="col-12 margin-top-lg">
+                                            <span className="size-xl font-weight-bold">مهارت‌ها:</span>
+                                            <div className={classNames(styles.newSkillContainer, 'margin-right-lg')}>
+                                                <select className={styles.newSkillSelect} ref={this.skillInput}>
+                                                    <option value="">-- انتخاب مهارت --</option>
+                                                    {skillNames.map(skillName => (
+                                                        !user.skills.map(skill => skill.name).includes(skillName) && (
+                                                            <option key={skillName} value={skillName}>{skillName}</option>
+                                                        )
+                                                    ))}
+                                                </select>
+                                                <div className="button" onClick={this.addSkill}>
+                                                    افزودن مهارت
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="col-12 text-left ltr margin-top-lg">
+                                        {user.skills.map(skill => (
+                                            <SkillBox
+                                                key={skill.name}
+                                                skill={skill}
+                                                removable={(this.props.match.params.userId || '1') === '1'}
+                                                onClick={() => this.removeSkill(skill.name)}
+                                            />
+                                        ))}
+                                    </div>    
+                                </div>  
                             </div>    
-                        </div>  
-                    </div>    
+                        )
+                    }
                 </div>              
             </React.Fragment>
         )
@@ -82,9 +187,27 @@ export default class User extends Component<Props, State> {
 }
 
 interface Props {
-
+    match: any,
 }
 
 interface State {
-
+    user: User | null,
+    skillNames: string[] | null,
 }
+
+interface User {
+    id: number,
+    firstName: string,
+    lastName: string,
+    jobTitle: string,
+    profilePictureUrl: string,
+    bio: string,
+    skills: Skill[],
+}
+
+interface Skill {
+    name: string,
+    point: number,
+}
+
+export default User;

@@ -117,7 +117,6 @@ class Home extends React.Component<Props, State> {
 }
 
 interface Props {
-    yourName: String,
 }
 
 interface State {
@@ -135,11 +134,6 @@ interface Project {
     requiredSkills: Skill[],
 }
 
-interface Skill {
-    name: string,
-    point: number,
-}
-
 interface User {
     id: number,
     firstName: string,
@@ -148,6 +142,11 @@ interface User {
     profilePictureUrl: string,
     bio: string,
     skills: Skill[],
+}
+
+interface Skill {
+    name: string,
+    point: number,
 }
 
 export default Home; 

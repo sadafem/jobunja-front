@@ -1,0 +1,39 @@
+.skillContainer {
+    margin-top: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px #ddd;
+    background: white;
+    padding: 6px 6px 6px 10px;
+    margin-right: 10px;
+    user-select: none;
+}
+
+.skillPoint {
+    border-radius: 5px;
+    background-color: #b9eef2;
+    color: #3e858a;
+    text-align: center;
+    width: 30px;
+    display: inline-block;
+    padding-top: 4px;
+    margin-left: 5px;
+}
+
+.skillPoint.error {
+    background: #db392a;
+    color: white;
+}
+
+.skillPoint.success {
+    background: #51b433;
+    color: white;
+}
+
+.skillContainer.removable {
+    cursor: pointer;
+}
+.skillContainer.removable:hover .skillPoint {
+    background-color: red;
+    color: white;
+}

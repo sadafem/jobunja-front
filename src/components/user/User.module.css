@@ -1,26 +1,38 @@
-#content-background {
-    margin-top: 250px;
+.contentBackground {
+    margin-top: 180px;
     min-height: calc(100vh - 327px);
+    background-color: #f6f6f6;
+    box-shadow: 0 0 7px #ccc;
+
 }
 
-#user-img-container {
+.imageContainer {
     border-radius: 20px;
     width: 100%;
     padding: 10px;
     background: white;
     box-shadow: 0 0 7px #ccc;
-    margin-top: -120px;
+    margin-top: -110px;
 }
 
-#user-img {
-    width: 100%;
+.image {
+    width: 190px;
+    height: 190px;
     border-radius: 15px;
 }
 
-#new-skill-container {
+.newSkillContainer {
     background: white;
     border-radius: 5px;
     box-shadow: 0 0 7px #ccc;
     display: inline-block;
     padding: 6px;
+}
+
+.newSkillSelect {
+    background: #f6f6f6;
+    border: 1px solid #eee;
+    height: 45px;
+    width: 200px;
+    outline: none;
 }
