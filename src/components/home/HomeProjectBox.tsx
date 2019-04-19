@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './ProjectOverview.module.css';
+import styles from './HomeProjectBox.module.css';
 
 import { persianNumberHumanize } from '../../utils';
 
-class ProjectOverview extends React.Component<Props> {
+class HomeProjectBox extends React.Component<Props> {
 
     render() {
         const { project } = this.props;
@@ -65,4 +65,4 @@ interface Skill {
     point: number,
 }
 
-export default ProjectOverview; 
+export default HomeProjectBox; 

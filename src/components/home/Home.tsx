@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 
-import ProjectOverview from './ProjectOverview';
+import HomeProjectBox from './HomeProjectBox';
 
-import styles from './ProjectsList.module.css';
+import styles from './Home.module.css';
 
-class ProjectsList extends React.Component<Props, State> {
+class Home extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -55,7 +55,7 @@ class ProjectsList extends React.Component<Props, State> {
                             : (
                                 <div style={{position: 'relative', top: -30}}>
                                     {projects.map(project => (
-                                        <ProjectOverview
+                                        <HomeProjectBox
                                             key={project.id}
                                             project={project}
                                         />
@@ -93,4 +93,4 @@ interface Skill {
     point: number,
 }
 
-export default ProjectsList; 
+export default Home; 

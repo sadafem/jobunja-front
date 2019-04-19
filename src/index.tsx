@@ -9,7 +9,7 @@ import './index.css';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import ProjectsList from './components/project/ProjectsList';
+import Home from './components/home/Home';
 
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
@@ -21,7 +21,7 @@ ReactDOM.render(
         <Header/>
         <div style={{paddingTop: 70}}>
             <Router>
-                <Route exact path="/project" component={ProjectsList} />
+                <Route exact path="/" component={Home} />
             </Router>
         </div>
         <Footer/>
