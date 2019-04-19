@@ -10,6 +10,7 @@ import './index.css';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import ProjectsList from './components/project/ProjectsList';
+import User from './components/user/User';
 
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
@@ -22,6 +23,8 @@ ReactDOM.render(
         <div style={{paddingTop: 70}}>
             <Router>
                 <Route exact path="/project" component={ProjectsList} />
+                <Route exact path="/user" component={User} />
+                {/* <Route exact path="/profile" component={User} /> */}
             </Router>
         </div>
         <Footer/>

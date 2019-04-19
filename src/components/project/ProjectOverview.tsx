@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import styles from './ProjectOverview.module.css';
 
-import { persianNumberHumanize } from '../../utils';
+import { persianNumberHumanize } from 'src/utils';
 
-class ProjectOverview extends React.Component<Props> {
+class ProjectOverview extends Component<Props> {
 
     render() {
         const { project } = this.props;

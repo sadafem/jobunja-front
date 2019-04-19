@@ -1,0 +1,26 @@
+#content-background {
+    margin-top: 250px;
+    min-height: calc(100vh - 327px);
+}
+
+#user-img-container {
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 0 7px #ccc;
+    margin-top: -120px;
+}
+
+#user-img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+#new-skill-container {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 7px #ccc;
+    display: inline-block;
+    padding: 6px;
+}
