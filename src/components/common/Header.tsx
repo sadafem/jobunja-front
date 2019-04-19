@@ -13,7 +13,9 @@ class Header extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-6">
-                            <img src={headerLogo} className={styles.logo} />
+                            <Link to="/">
+                                <img src={headerLogo} className={styles.logo} />
+                            </Link>
                         </div>
                         <div className="col-6 text-left d-flex align-items-center justify-content-end">
                             <Link className="link" to="/user">
