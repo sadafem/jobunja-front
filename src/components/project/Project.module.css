@@ -1,0 +1,79 @@
+.content‌Background {
+    background: #f6f6f6;
+    margin-top: 190px;
+    box-shadow: 0 0 7px #ccc;
+    min-height: calc(100vh - 337px);
+}
+
+.projectDetailsBox {
+    box-shadow: 0 0 7px #ccc;
+    border-radius: 5px;
+    position: relative; top: -60px;
+}
+
+.projectDescSection {
+    border-radius: 5px 5px 0 0;
+    background: white;
+    border-bottom: 2px dashed #61cada;
+    padding: 40px;
+}
+
+.projectImg {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.projectDescTitle {
+    font-size: 20px;
+    font-weight: bold; 
+    margin-top: 20px;
+}
+
+.projectDesc {
+    margin-top: 10px;
+    font-size: 17px;
+    text-align: justify;
+}
+
+.projectSkillsContainer {
+    background: #f9f9f9;
+    border-bottom: 2px solid #eaeaea;
+    padding: 30px 40px;
+}
+
+.projectSkillsTitle {
+    color: #3e858a;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.projectBidSection {
+    background: white;
+    border-radius: 0 0 5px 5px;
+    padding: 40px;
+}
+
+.projectBidTitle {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.projectBidContainer {
+    margin-top: 10px;
+}
+
+.projectBidInput {
+    border-radius: 4px;
+    font-size: 17px;
+    border: 2px solid #4daabc;
+    padding: 8px 12px 8px 55px;
+    background: none;
+}
+
+.projectBidUnit {
+    margin: 0 -53px 0 18px;
+    display: inline-block;
+    font-size: 17px;
+    color: #3e858a;
+}

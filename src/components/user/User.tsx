@@ -69,7 +69,7 @@ class User extends React.Component<Props, State> {
         axios
             .post(
                 '/api/user/skill/add',
-                `skillName=${skillName}`,
+                `skillName=${encodeURIComponent(skillName)}`,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -108,7 +108,7 @@ class User extends React.Component<Props, State> {
         axios
             .post(
                 '/api/user/skill/delete',
-                `skillName=${skillName}`,
+                `skillName=${encodeURIComponent(skillName)}`,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',

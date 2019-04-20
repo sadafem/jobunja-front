@@ -10,10 +10,17 @@ class HomeProjectBox extends React.Component<Props> {
 
     render() {
         const { project } = this.props;
-        project.deadline *= 1000;
 
         return (
-            <Link to={`/project/${project.id}`}  className={classNames(styles.container, styles.expired)}>
+            <Link
+                to={`/project/${project.id}`}
+                className={
+                    classNames({
+                        [styles.container]: true,
+                        [styles.expired]: project.deadline < Date.now(),
+                    })
+                }
+            >
                 <div className="d-flex">
                     <div>
                         <img src={project.imageUrl} className={styles.image} />

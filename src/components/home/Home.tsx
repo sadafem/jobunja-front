@@ -27,6 +27,9 @@ class Home extends React.Component<Props, State> {
             .then(res => {
                 console.log('projects');
                 console.log(res.data);
+                for (const project of res.data) {
+                    project.deadline *= 1000;
+                }
                 this.setState({
                     projects: res.data,
                 });
@@ -74,7 +77,7 @@ class Home extends React.Component<Props, State> {
                         </div>
                     </div>
                 </div>
-                <div style={{background: '#f6f6f6', marginTop: 60, boxShadow: '0 0 7px #ccc', minHeight: 'calc(100vh - 433px)'}}>
+                <div style={{background: '#f6f6f6', marginTop: 60, boxShadow: '0 0 7px #ccc', minHeight: 'calc(100vh - 472px)'}}>
                     <div className="container">
                         <div className="row">
                             <div className="col-12 col-lg-3">

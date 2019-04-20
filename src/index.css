@@ -26,13 +26,6 @@ p {
   color: #3e858a;
 }
 
-#content-background {
-  background: #f6f6f6;
-  margin-top: 190px;
-  box-shadow: 0 0 7px #ccc;
-  min-height: calc(100vh - 267px);
-}
-
 .pointer {
   cursor: pointer;
 }

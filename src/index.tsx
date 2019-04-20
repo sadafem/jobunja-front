@@ -15,6 +15,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Home from './components/home/Home';
 import User from './components/user/User';
+import Project from './components/project/Project';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -31,6 +32,7 @@ ReactDOM.render(
                 <Route exact path="/" component={Home} />
                 <Route exact path="/user" component={User} />
                 <Route exact path="/user/:userId" component={User} />
+                <Route exact path="/project/:projectId" component={Project} />
                 <Footer/>
             </Router>
         </div>

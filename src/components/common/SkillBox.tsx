@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import styles from './SkillBox.module.css';
 
+import { persianNumberHumanize } from 'src/utils';
+
 class SkillBox extends React.Component<Props, State> {
 
     render() {
@@ -26,7 +28,7 @@ class SkillBox extends React.Component<Props, State> {
             >
                 {skill.name}
                 <div className={styles.skillPoint}>
-                    {skill.point}
+                    {persianNumberHumanize(skill.point)}
                 </div>
             </div>
         )
