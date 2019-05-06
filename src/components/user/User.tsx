@@ -60,6 +60,15 @@ class User extends React.Component<Props, State> {
             });
     }
 
+    handleSkillClick = (skillName: string) => {
+        if ((this.props.match.params.userId || '1') === '1') {
+            this.removeSkill(skillName);
+        }
+        else {
+            this.endorseSkill(skillName);
+        }
+    }
+
     addSkill = () => {
         const skillName = this.skillInput.current!.value;
         if (!skillName) {
@@ -76,11 +85,13 @@ class User extends React.Component<Props, State> {
                     },
                 }
             )
-            .then(res => {
-                console.log(res.data);
+            .then(() => {
+                toast.success('مهارت جدید اضافه شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
                 const user = this.state.user!;
                 user.skills.push({
-                    name: skillName,
+                    skill_name: skillName,
                     point: 0,
                 });
                 this.setState({
@@ -95,15 +106,6 @@ class User extends React.Component<Props, State> {
             })
     }
 
-    handleSkillClick = (skillName: string) => {
-        if ((this.props.match.params.userId || '1') === '1') {
-            this.removeSkill(skillName);
-        }
-        else {
-            this.endorseSkill(skillName);
-        }
-    }
-
     removeSkill = (skillName: string) => {
         axios
             .post(
@@ -115,19 +117,28 @@ class User extends React.Component<Props, State> {
                     },
                 }
             )
-            .then(res => {
-                console.log(res.data);
+            .then(() => {
+                toast.success('مهارت مورد نظر حذف شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
                 const user = this.state.user!;
-                user.skills = user.skills.filter(skill => skill.name !== skillName);
+                user.skills = user.skills.filter(skill => skill.skill_name !== skillName);
                 this.setState({
                     user,
                 });
             })
             .catch(err => {
-                console.error(err);
-                toast.error('حذف مهارت با خطا مواجه شد!', {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                });
+                if (err.response && err.response.status === 404) {
+                    toast.error('مهارت مورد نظر در لیست مهارت‌های شما وجود ندارد!', {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+                else {
+                    console.error(err);
+                    toast.error('حذف مهارت با خطا مواجه شد!', {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
             });
     }
 
@@ -142,10 +153,12 @@ class User extends React.Component<Props, State> {
                     },
                 }
             )
-            .then(res => {
-                console.log(res.data);
+            .then(() => {
+                toast.success('امتیازدهی به مهارت انجام شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
                 const user = this.state.user!;
-                const skill = user.skills.find(skill => skill.name === skillName);
+                const skill = user.skills.find(skill => skill.skill_name === skillName);
                 if (skill) {
                     skill.point++;
                 }
@@ -207,7 +220,7 @@ class User extends React.Component<Props, State> {
                                                 <select className={styles.newSkillSelect} ref={this.skillInput}>
                                                     <option value="">-- انتخاب مهارت --</option>
                                                     {skillNames.map(skillName => (
-                                                        !user.skills.map(skill => skill.name).includes(skillName) && (
+                                                        !user.skills.map(skill => skill.skill_name).includes(skillName) && (
                                                             <option key={skillName} value={skillName}>{skillName}</option>
                                                         )
                                                     ))}
@@ -221,11 +234,11 @@ class User extends React.Component<Props, State> {
                                     <div className="col-12 text-left ltr margin-top-lg">
                                         {user.skills.map(skill => (
                                             <SkillBox
-                                                key={skill.name}
+                                                key={skill.skill_name}
                                                 skill={skill}
                                                 removable={(this.props.match.params.userId || '1') === '1'}
                                                 endorsable={(this.props.match.params.userId || '1') !== '1'}
-                                                onClick={() => this.handleSkillClick(skill.name)}
+                                                onClick={() => this.handleSkillClick(skill.skill_name)}
                                             />
                                         ))}
                                     </div>    
@@ -259,7 +272,7 @@ interface User {
 }
 
 interface Skill {
-    name: string,
+    skill_name: string,
     point: number,
 }
 

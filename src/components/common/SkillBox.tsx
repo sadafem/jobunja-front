@@ -26,7 +26,7 @@ class SkillBox extends React.Component<Props, State> {
                 }
                 {...other}
             >
-                {skill.name}
+                {skill.skill_name}
                 <div className={styles.skillPoint}>
                     {persianNumberHumanize(skill.point)}
                 </div>
@@ -46,7 +46,7 @@ interface State {
 }
 
 interface Skill {
-    name: string,
+    skill_name: string,
     point: number,
 }
 

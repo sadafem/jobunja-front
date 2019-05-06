@@ -12,8 +12,12 @@ class Home extends React.Component<Props, State> {
         super(props);
 
         this.state = {
+            projectSearch: '',
+            userSearch: '',
             projects: null,
             users: null,
+            hasNextPage: false,
+            currPage: 0,
         };
     }
 
@@ -22,17 +26,43 @@ class Home extends React.Component<Props, State> {
         this.fetchUsers();
     }
 
-    fetchProjects() {
-        axios.get('/project')
+    handleProjectSearchInput = (e: React.FormEvent<HTMLInputElement>) => {
+        this.setState({
+            projectSearch: e.currentTarget.value,
+        });
+    }
+
+    handleUserSearchInput = (e: React.FormEvent<HTMLInputElement>) => {
+        this.setState({
+            userSearch: e.currentTarget.value,
+        });
+    }
+
+    handleUserSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            this.fetchUsers();
+        }
+    }
+
+    fetchProjects = (append: boolean = false) => {
+        axios
+            .post(
+                '/project',
+                `limit=5&offset=${this.state.currPage * 5}&search=${this.state.projectSearch}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            )
             .then(res => {
                 console.log('projects');
                 console.log(res.data);
-                for (const project of res.data) {
-                    project.deadline *= 1000;
-                }
-                this.setState({
-                    projects: res.data,
-                });
+                this.setState(prevState => ({
+                    projects: append ? prevState.projects!.concat(res.data) : res.data,
+                    hasNextPage: res.data.length === 5,
+                    currPage: append ? prevState.currPage + 1 : 1,
+                }));
             })
             .catch(err => {
                 console.error(err);
@@ -40,7 +70,16 @@ class Home extends React.Component<Props, State> {
     }
 
     fetchUsers() {
-        axios.get('/user')
+        axios
+            .post(
+                '/user',
+                `search=${this.state.userSearch}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                }
+            )
             .then(res => {
                 console.log('users');
                 console.log(res.data);
@@ -57,6 +96,7 @@ class Home extends React.Component<Props, State> {
         const {
             projects,
             users,
+            hasNextPage,
         } = this.state;
 
         return (
@@ -71,8 +111,12 @@ class Home extends React.Component<Props, State> {
                             className={styles.searchInput}
                             type="text"
                             placeholder="جستجو در جاب‌اونجا"
+                            onInput={this.handleProjectSearchInput}
                         />
-                        <div className={styles.searchSubmitButton}>
+                        <div
+                            className={styles.searchSubmitButton}
+                            onClick={() => this.fetchProjects()}
+                        >
                             جستجو
                         </div>
                     </div>
@@ -83,7 +127,12 @@ class Home extends React.Component<Props, State> {
                             <div className="col-12 col-lg-3">
                                 <div style={{position: 'relative', top: -30}}>
                                     <div style={{borderRadius: 3, backgroundColor: 'white', padding: 5, boxShadow: '0 0 7px #ccc'}}>
-                                        <input style={{backgroundColor: '#f6f6f6', border: 'none', width: '100%', fontSize: 16, padding: '8px 12px'}} placeholder="جستجو نام کاربر"></input>
+                                        <input
+                                            style={{backgroundColor: '#f6f6f6', border: 'none', width: '100%', fontSize: 16, padding: '8px 12px'}}
+                                            placeholder="جستجو نام کاربر"
+                                            onInput={this.handleUserSearchInput}
+                                            onKeyPress={this.handleUserSearchKeyPress}
+                                        />
                                     </div>
                                     {users === null
                                         ? 'LOADING...'
@@ -100,14 +149,25 @@ class Home extends React.Component<Props, State> {
                                 {projects === null
                                     ? 'LOADING...'
                                     : (
-                                        <div style={{position: 'relative', top: -30}}>
-                                            {projects.map(project => (
-                                                <HomeProjectBox
-                                                    key={project.id}
-                                                    project={project}
-                                                />
-                                            ))}
-                                        </div>
+                                        <React.Fragment>
+                                            <div style={{position: 'relative', top: -30}}>
+                                                {projects.map(project => (
+                                                    <HomeProjectBox
+                                                        key={project.id}
+                                                        project={project}
+                                                    />
+                                                ))}
+                                            </div>
+                                            {hasNextPage && (
+                                                <div
+                                                    className="btn btn-primary"
+                                                    style={{marginBottom: 40}}
+                                                    onClick={() => this.fetchProjects(true)}
+                                                >
+                                                    پروژه‌های بیشتر
+                                                </div>
+                                            )}
+                                        </React.Fragment>
                                     )
                                 }
                             </div>
@@ -123,8 +183,12 @@ interface Props {
 }
 
 interface State {
+    projectSearch: string,
+    userSearch: string,
     projects: Project[] | null,
     users: User[] | null,
+    hasNextPage: boolean,
+    currPage: number,
 }
 
 interface Project {
@@ -148,7 +212,7 @@ interface User {
 }
 
 interface Skill {
-    name: string,
+    skill_name: string,
     point: number,
 }
 

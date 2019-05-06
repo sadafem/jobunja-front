@@ -54,17 +54,24 @@ class Project extends React.Component<Props, State> {
                     },
                 }
             )
-            .then(res => {
+            .then(() => {
                 this.state.project!.bid = amount;
                 this.setState({
                     project: this.state.project,
                 });
             })
             .catch(err => {
-                console.error(err);
-                toast.error('ثبت پیشنهاد با خطا مواجه شد!', {
-                    position: toast.POSITION.BOTTOM_RIGHT,
-                });
+                if (err.response && err.response.status === 403) {
+                    toast.error('شما نمی‌توانید برای این پروژه پیشنهاد ثبت کنید!', {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
+                else {
+                    console.error(err);
+                    toast.error('ثبت پیشنهاد با خطا مواجه شد!', {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                    });
+                }
             })
     }
 
@@ -144,7 +151,7 @@ class Project extends React.Component<Props, State> {
                                     <div className="text-left ltr">
                                         {project.requiredSkills.map(skill => (
                                             <SkillBox
-                                                key={skill.name}
+                                                key={skill.skill_name}
                                                 skill={skill}
                                             />
                                         ))}
@@ -207,7 +214,7 @@ interface Project {
 }
 
 interface Skill {
-    name: string,
+    skill_name: string,
     point: number,
 }
 

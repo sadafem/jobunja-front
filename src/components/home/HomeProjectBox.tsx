@@ -39,10 +39,10 @@ class HomeProjectBox extends React.Component<Props> {
                             مهارت‌ها:
                             {project.requiredSkills.map(skill => (
                                 <div
-                                    key={skill.name}
+                                    key={skill.skill_name}
                                     className={styles.skill}
                                 >
-                                    {skill.name}
+                                    {skill.skill_name}
                                 </div>
                             ))}
                         </div>
@@ -85,7 +85,7 @@ interface Project {
 }
 
 interface Skill {
-    name: string,
+    skill_name: string,
     point: number,
 }
 

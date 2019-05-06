@@ -12,7 +12,10 @@ class HomeUserBox extends React.Component<Props> {
             <Link to={`/user/${user.id}`}  className={styles.container}>
                 <div className="d-flex align-items-center">
                     <div>
-                        <img src={user.profilePictureUrl} className={styles.image} />
+                        <img
+                            src={user.profilePictureUrl || 'http://www.ieeeaustsb.org/files/2017/05/placeholder-male-square.png'}
+                            className={styles.image}
+                        />
                     </div>
                     <div>
                         {user.firstName}{' '}{user.lastName}
@@ -41,7 +44,7 @@ interface User {
 }
 
 interface Skill {
-    name: string,
+    skill_name: string,
     point: number,
 }
 
