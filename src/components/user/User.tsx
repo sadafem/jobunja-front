@@ -73,7 +73,7 @@ class User extends React.Component<Props, State> {
         const skillName = this.skillInput.current!.value;
         if (!skillName) {
             return;
-        }
+        }2
 
         axios
             .post(

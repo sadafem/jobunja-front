@@ -16,6 +16,7 @@ import Footer from './components/common/Footer';
 import Home from './components/home/Home';
 import User from './components/user/User';
 import Project from './components/project/Project';
+import Signup from './components/signup/Signup';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -33,6 +34,7 @@ ReactDOM.render(
                 <Route exact path="/user" component={User} />
                 <Route exact path="/user/:userId" component={User} />
                 <Route exact path="/project/:projectId" component={Project} />
+                <Route exact path="/signup" component={Signup} />
                 <Footer/>
             </Router>
         </div>

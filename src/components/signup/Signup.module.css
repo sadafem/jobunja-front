@@ -1,0 +1,92 @@
+.contentBackground {
+    background: #f6f6f6;
+    margin-top: 190px;
+    box-shadow: 0 0 7px #ccc;
+    min-height: calc(100vh - 267px);
+}
+
+
+.mainBox {
+    box-shadow: 0 0 7px #ccc;
+    border-radius: 5px;
+    position: relative; top: -60px;
+    background: white;
+    padding: 30px 40px;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #666;
+    display: block;
+}
+
+.input {
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    font-size: 14px;
+    padding: 8px 12px;
+    outline: none;
+    width: 100%;
+    transition: box-shadow .15s ease;
+}
+
+.input:focus {
+    box-shadow: 0 0 5px #bbb;
+}
+
+.slideshow {
+    overflow: hidden;
+    height: 300px;
+    width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.slideWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2000px;
+    animation: slide 12s ease infinite;
+}
+
+.slide {
+    float: left;
+    height: 300px;
+    width: 500px;
+    padding-top: 70px;
+}
+
+.slide:nth-child(1) {
+    background: #D93B65;
+}
+
+.slide:nth-child(2) {
+    background: #037E8C;
+}
+
+.slide:nth-child(3) {
+    background: #36BF66;
+}
+
+.slide:nth-child(4) {
+    background: #D9D055;
+}
+
+.slideNumber {
+    color: #000;
+    text-align: center;
+    font-size: 10em;
+}
+
+@keyframes slide {
+    0% {margin-left: 0px;}
+    20% {margin-left: 0px;}
+    25% {margin-left: -500px;}
+    45% {margin-left: -500px;}
+    50% {margin-left: -1000px;}
+    70% {margin-left: -1000px;}
+    75% {margin-left: -1500px;}
+    95% {margin-left: -1500px;}
+}
