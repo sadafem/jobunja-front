@@ -8,19 +8,19 @@ import styles from './Signup.module.css';
 class Signup extends React.Component<Props, State> {
     firstNameInput = React.createRef<HTMLInputElement>();
     lastNameInput = React.createRef<HTMLInputElement>();
-    username = React.createRef<HTMLInputElement>(); 
-    password = React.createRef<HTMLInputElement>();
+    usernameInput = React.createRef<HTMLInputElement>(); 
+    passwordInput = React.createRef<HTMLInputElement>();
     jobNameInput = React.createRef<HTMLInputElement>();
-    imageURL = React.createRef<HTMLInputElement>(); 
+    imageUrlInput = React.createRef<HTMLInputElement>(); 
     bioInput = React.createRef<HTMLTextAreaElement>();
 
     addUser = () => {
         const firstName = this.firstNameInput.current!.value;
         const lastName = this.lastNameInput.current!.value;
-        const username = this.lastNameInput.current!.value;
-        const password = this.lastNameInput.current!.value;
+        const username = this.usernameInput.current!.value;
+        const password = this.passwordInput.current!.value;
         const jobName = this.jobNameInput.current!.value;
-        const imageURL = this.imageURL.current!.value;
+        const imageUrl = this.imageUrlInput.current!.value;
         const bio = this.bioInput.current!.value;
 
         axios
@@ -31,7 +31,7 @@ class Signup extends React.Component<Props, State> {
             `‍‍&username=${encodeURIComponent(username)}`+
             `&password=${encodeURIComponent(password)}`+
             `&jobName=${encodeURIComponent(jobName)}`+
-            `‍‍&imageURL=${encodeURIComponent(imageURL)}`+
+            `‍‍&imageURL=${encodeURIComponent(imageUrl)}`+
             `‍‍&bio=${encodeURIComponent(bio)}`,
             {
                 headers: {
@@ -59,14 +59,26 @@ class Signup extends React.Component<Props, State> {
                     <div className={styles.mainBox}>
                         <div className="row">
                             <div className="col-4">
-                                <label className={styles.label}>نام</label>
-                                <input className={styles.input} ref={this.nameInput}/>
+                                <label className={styles.label}>نام کاربری</label>
+                                <input className={styles.input} ref={this.usernameInput}/>
                             </div>
                             <div className="col-4">
+                                <label className={styles.label}>رمز عبور</label>
+                                <input className={styles.input} type="password" ref={this.passwordInput}/>
+                            </div>
+                            <div className="col-4">
+                                <label className={styles.label}>آدرس تصویر</label>
+                                <input className={styles.input} ref={this.imageUrlInput}/>
+                            </div>
+                            <div className="col-4 margin-top-lg">
+                                <label className={styles.label}>نام</label>
+                                <input className={styles.input} ref={this.firstNameInput}/>
+                            </div>
+                            <div className="col-4 margin-top-lg">
                                 <label className={styles.label}>نام خانوادگی</label>
                                 <input className={styles.input} ref={this.lastNameInput}/>
                             </div>
-                            <div className="col-4">
+                            <div className="col-4 margin-top-lg">
                                 <label className={styles.label}>عنوان شغلی</label>
                                 <input className={styles.input} ref={this.jobNameInput}/>
                             </div>
