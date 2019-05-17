@@ -26,12 +26,12 @@ class Signup extends React.Component<Props, State> {
         axios
         .post(
             'api/user/add',
-            `name=${encodeURIComponent(firstName)}`+
+            `firstName=${encodeURIComponent(firstName)}`+
             `‍‍&lastName=${encodeURIComponent(lastName)}`+
             `‍‍&username=${encodeURIComponent(username)}`+
             `&password=${encodeURIComponent(password)}`+
             `&jobName=${encodeURIComponent(jobName)}`+
-            `‍‍&imageURL=${encodeURIComponent(imageUrl)}`+
+            `‍‍&imageUrl=${encodeURIComponent(imageUrl)}`+
             `‍‍&bio=${encodeURIComponent(bio)}`,
             {
                 headers: {

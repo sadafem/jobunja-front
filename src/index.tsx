@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -17,10 +17,18 @@ import Home from './components/home/Home';
 import User from './components/user/User';
 import Project from './components/project/Project';
 import Signup from './components/signup/Signup';
+import Login from './components/login/Login';
 
 import * as serviceWorker from './serviceWorker';
 
 axios.defaults.baseURL = 'http://localhost:8080/';
+const jwt = localStorage.getItem('jwt-token');
+if (jwt) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
+}
+else if (location.pathname !== '/login' && location.pathname !== '/signup') {
+    location.href = '/login';
+}
 
 ReactDOM.render(
     <React.Fragment>
@@ -35,6 +43,7 @@ ReactDOM.render(
                 <Route exact path="/user/:userId" component={User} />
                 <Route exact path="/project/:projectId" component={Project} />
                 <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
                 <Footer/>
             </Router>
         </div>
