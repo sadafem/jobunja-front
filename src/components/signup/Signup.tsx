@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import styles from './Signup.module.css';
 
-class Signup extends React.Component<Props, State> {
+class Signup extends React.Component {
     firstNameInput = React.createRef<HTMLInputElement>();
     lastNameInput = React.createRef<HTMLInputElement>();
     usernameInput = React.createRef<HTMLInputElement>(); 
@@ -40,8 +40,13 @@ class Signup extends React.Component<Props, State> {
             }
         )
         .then(() => {
-            toast.success('کاربر جدید اضافه شد!', {
+            toast.success('کاربر جدید اضافه شد.', {
                 position: toast.POSITION.BOTTOM_RIGHT,
+                pauseOnFocusLoss: false,
+                pauseOnHover: false,
+                onClose() {
+                    location.href = '/login';
+                },
             });
         })
         .catch(err => {
@@ -108,15 +113,6 @@ class Signup extends React.Component<Props, State> {
         </React.Fragment>
         )
     }
-}
-
-
-interface Props {
-
-}
-
-interface State {
-
 }
 
 

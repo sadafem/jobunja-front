@@ -17,6 +17,7 @@ p {
 }
 
 .link {
+  cursor: pointer;
   font-size: 18px;
   color: black;
 }
@@ -31,6 +32,7 @@ p {
 }
 
 .button {
+  border: none;
   cursor: pointer;
   background: #4daabc;
   display: inline-block;
@@ -39,6 +41,10 @@ p {
   color: white;
   font-size: 17px;
   margin-right: 5px;
+  outline: none;
+}
+.button:active {
+  box-shadow: inset 0px 2px 2px #00000044;
 }
 
 .ltr {

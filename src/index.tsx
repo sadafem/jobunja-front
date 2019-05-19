@@ -20,24 +20,35 @@ import Signup from './components/signup/Signup';
 import Login from './components/login/Login';
 
 import * as serviceWorker from './serviceWorker';
+import { parseJwt } from './utils';
 
 axios.defaults.baseURL = 'http://localhost:8080/';
 const jwt = localStorage.getItem('jwt-token');
 if (jwt) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
+    const parsedJwt = parseJwt(jwt);
+    if (parsedJwt.exp * 1000 < Date.now()) {
+        localStorage.removeItem('jwt-token');
+        if (location.pathname !== '/login' && location.pathname !== '/signup') {
+            location.href = '/signup';
+        }
+    }
+    else {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
+    }
 }
 else if (location.pathname !== '/login' && location.pathname !== '/signup') {
-    location.href = '/login';
+    location.href = '/signup';
 }
 
 ReactDOM.render(
     <React.Fragment>
         <ToastContainer
+            pauseOnFocusLoss={false}
             rtl={true}
         />
         <div style={{paddingTop: 70}}>
             <Router>
-                <Header/>
+                <Route path="/" component={(props: any) => <Header loggedIn={jwt !== null} {...props} />} />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/user" component={User} />
                 <Route exact path="/user/:userId" component={User} />
