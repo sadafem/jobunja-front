@@ -9,7 +9,7 @@ class HomeUserBox extends React.Component<Props> {
         const { user } = this.props;
 
         return (
-            <Link to={`/user/${user.id}`}  className={styles.container}>
+            <Link to={`/user/${user.username}`}  className={styles.container}>
                 <div className="d-flex align-items-center">
                     <div>
                         <img
@@ -34,7 +34,7 @@ interface Props {
 }
 
 interface User {
-    id: number,
+    username:string,
     firstName: string,
     lastName: string,
     jobTitle: string,

@@ -138,7 +138,7 @@ class Home extends React.Component<Props, State> {
                                         ? 'LOADING...'
                                         : users.map(user => (
                                             <HomeUserBox
-                                                key={user.id}
+                                                key={user.username}
                                                 user={user}
                                             />
                                         ))
@@ -202,7 +202,7 @@ interface Project {
 }
 
 interface User {
-    id: number,
+    username: string,
     firstName: string,
     lastName: string,
     jobTitle: string,

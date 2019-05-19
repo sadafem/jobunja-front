@@ -26,7 +26,7 @@ class User extends React.Component<Props, State> {
 
     fetchUser() {
         axios
-            .get(`/user/${this.props.match.params.userId || 1}`)
+            .get(`/user/${this.props.match.params.username || "alijoon"}`)
             .then(res => {
                 console.log('user');
                 console.log(res.data);
@@ -262,7 +262,7 @@ interface State {
 }
 
 interface User {
-    id: number,
+    username: number,
     firstName: string,
     lastName: string,
     jobTitle: string,

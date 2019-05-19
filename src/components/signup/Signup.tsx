@@ -23,6 +23,19 @@ class Signup extends React.Component<Props, State> {
         const imageUrl = this.imageUrlInput.current!.value;
         const bio = this.bioInput.current!.value;
 
+        if(password.length < 5) {
+            toast.error('رمز عبور شما باید حداقل ۵ کاراکتر باشد!', {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            return;
+        }
+        if (!username || !password || !firstName || !lastName || !jobName) {
+            toast.error('پرکردن تمام فیلدهای ستاره‌دار الزامیست', {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            return;
+        }
+
         axios
         .post(
             'api/user/add',
@@ -45,10 +58,15 @@ class Signup extends React.Component<Props, State> {
             });
         })
         .catch(err => {
-            console.error(err);
-            toast.error('اضافه کردن کاربر با خطا مواجه شد!', {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
+            if(err.response.status === 402) {
+                toast.error('این نام کاربری قبلا ثبت شده است.');
+            }
+            else {
+                console.error(err);
+                toast.error('اضافه کردن کاربر با خطا مواجه شد!', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
         })
     }
     render() {
@@ -59,11 +77,11 @@ class Signup extends React.Component<Props, State> {
                     <div className={styles.mainBox}>
                         <div className="row">
                             <div className="col-4">
-                                <label className={styles.label}>نام کاربری</label>
+                                <label className={styles.label}>نام کاربری*</label>
                                 <input className={styles.input} ref={this.usernameInput}/>
                             </div>
                             <div className="col-4">
-                                <label className={styles.label}>رمز عبور</label>
+                                <label className={styles.label}>رمز عبور*</label>
                                 <input className={styles.input} type="password" ref={this.passwordInput}/>
                             </div>
                             <div className="col-4">
@@ -71,15 +89,15 @@ class Signup extends React.Component<Props, State> {
                                 <input className={styles.input} ref={this.imageUrlInput}/>
                             </div>
                             <div className="col-4 margin-top-lg">
-                                <label className={styles.label}>نام</label>
+                                <label className={styles.label}>نام*</label>
                                 <input className={styles.input} ref={this.firstNameInput}/>
                             </div>
                             <div className="col-4 margin-top-lg">
-                                <label className={styles.label}>نام خانوادگی</label>
+                                <label className={styles.label}>نام خانوادگی*</label>
                                 <input className={styles.input} ref={this.lastNameInput}/>
                             </div>
                             <div className="col-4 margin-top-lg">
-                                <label className={styles.label}>عنوان شغلی</label>
+                                <label className={styles.label}>عنوان شغلی*</label>
                                 <input className={styles.input} ref={this.jobNameInput}/>
                             </div>
                             <div className="col-12 margin-top-lg">

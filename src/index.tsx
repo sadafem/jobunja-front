@@ -40,7 +40,7 @@ ReactDOM.render(
                 <Header/>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/user" component={User} />
-                <Route exact path="/user/:userId" component={User} />
+                <Route exact path="/user/:username" component={User} />
                 <Route exact path="/project/:projectId" component={Project} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
