@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import styles from './User.module.css';
 import SkillBox from '../common/SkillBox';
+import { parseJwt } from 'src/utils';
 
 class User extends React.Component<Props, State> {
 
@@ -22,6 +23,12 @@ class User extends React.Component<Props, State> {
     componentDidMount() {
         this.fetchUser();
         this.fetchSkills();
+    }
+
+    componentDidUpdate() {
+        if (this.state.user && this.props.match.params.username !== this.state.user.username) {
+            this.fetchUser();
+        }
     }
 
     fetchUser() {
@@ -61,7 +68,13 @@ class User extends React.Component<Props, State> {
     }
 
     handleSkillClick = (skillName: string) => {
-        if ((this.props.match.params.userId || '1') === '1') {
+        let username: string = '';
+        const jwt = localStorage.getItem('jwt-token');
+        if (jwt) {
+            const parsedJwt = parseJwt(jwt);
+            username = parsedJwt.username;
+        }
+        if (this.props.match.params.username === username) {
             this.removeSkill(skillName);
         }
         else {
@@ -146,7 +159,7 @@ class User extends React.Component<Props, State> {
         axios
             .post(
                 '/api/user/skill/endorse',
-                `userId=${this.props.match.params.userId}&skillName=${skillName}`,
+                `username=${this.props.match.params.username}&skillName=${skillName}`,
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -167,7 +180,7 @@ class User extends React.Component<Props, State> {
                 });
             })
             .catch(err => {
-                if (err.response.status === 403) {
+                if (err.response && err.response.status === 403) {
                     toast.info('شما قبلا به این مهارت امتیاز داده اید!', {
                         position: toast.POSITION.BOTTOM_RIGHT,
                     });
@@ -186,6 +199,13 @@ class User extends React.Component<Props, State> {
             user,
             skillNames,
         } = this.state;
+
+        let username: string = '';
+        const jwt = localStorage.getItem('jwt-token');
+        if (jwt) {
+            const parsedJwt = parseJwt(jwt);
+            username = parsedJwt.username;
+        }
 
         return (
             <React.Fragment>
@@ -213,7 +233,7 @@ class User extends React.Component<Props, State> {
                                             {user.bio}
                                         </p>
                                     </div>
-                                    {skillNames && (this.props.match.params.userId || '1') === '1' && (
+                                    {skillNames && this.props.match.params.username === username && (
                                         <div className="col-12 margin-top-lg">
                                             <span className="size-xl font-weight-bold">مهارت‌ها:</span>
                                             <div className={classNames(styles.newSkillContainer, 'margin-right-lg')}>
@@ -236,8 +256,8 @@ class User extends React.Component<Props, State> {
                                             <SkillBox
                                                 key={skill.skill_name}
                                                 skill={skill}
-                                                removable={(this.props.match.params.userId || '1') === '1'}
-                                                endorsable={(this.props.match.params.userId || '1') !== '1'}
+                                                removable={this.props.match.params.username === username}
+                                                endorsable={this.props.match.params.username !== username}
                                                 onClick={() => this.handleSkillClick(skill.skill_name)}
                                             />
                                         ))}

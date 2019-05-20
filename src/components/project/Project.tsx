@@ -6,6 +6,7 @@ import styles from './Project.module.css';
 
 import { persianNumberHumanize } from 'src/utils';
 import SkillBox from '../common/SkillBox';
+import User from '../user/User';
 
 class Project extends React.Component<Props, State> {
 
@@ -131,10 +132,12 @@ class Project extends React.Component<Props, State> {
                                                 <i className="flaticon-money-bag"></i>
                                                 بودجه: {persianNumberHumanize(project.budget)} تومان
                                             </div>
-                                            {/* <div className="margin-top-sm font-weight-bold size-md color-success">
-                                                <i className="flaticon-check-mark"></i>
-                                                برنده: وحید محمدی
-                                            </div> */}
+                                            {project.winner && (
+                                                <div className="margin-top-sm font-weight-bold size-md color-success">
+                                                    <i className="flaticon-check-mark"></i>
+                                                    برنده: وحید محمدی
+                                                </div>
+                                            )}
                                             <div className={styles.projectDescTitle}>
                                                 توضیحات
                                             </div>
@@ -211,6 +214,7 @@ interface Project {
     deadline: number
     requiredSkills: Skill[],
     bid?: number,
+    winner?: string,
 }
 
 interface Skill {

@@ -63,7 +63,7 @@ class Signup extends React.Component {
             });
         })
         .catch(err => {
-            if(err.response.status === 402) {
+            if (err.response && err.response.status === 402) {
                 toast.error('این نام کاربری قبلا ثبت شده است.');
             }
             else {
