@@ -15,6 +15,7 @@ class HomeUserBox extends React.Component<Props> {
                         <img
                             src={user.profilePictureUrl || 'http://www.ieeeaustsb.org/files/2017/05/placeholder-male-square.png'}
                             className={styles.image}
+                            alt="avatar"
                         />
                     </div>
                     <div>

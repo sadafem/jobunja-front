@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import styles from './SkillBox.module.css';
 
-import { persianNumberHumanize } from 'src/utils';
+import { persianNumberHumanize } from '../../utils';
 
 class SkillBox extends React.Component<Props, State> {
 

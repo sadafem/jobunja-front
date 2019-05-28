@@ -1,6 +1,7 @@
+/* eslint-disable no-restricted-globals */
+
 import React from 'react';
 import axios from 'axios';
-import classNames from 'classnames';
 import { toast } from 'react-toastify';
 
 import styles from './Signup.module.css';

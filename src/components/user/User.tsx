@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import styles from './User.module.css';
 import SkillBox from '../common/SkillBox';
-import { parseJwt } from 'src/utils';
+import { parseJwt } from '../../utils';
 
 class User extends React.Component<Props, State> {
 
@@ -86,7 +86,7 @@ class User extends React.Component<Props, State> {
         const skillName = this.skillInput.current!.value;
         if (!skillName) {
             return;
-        }2
+        }
 
         axios
             .post(
@@ -217,7 +217,11 @@ class User extends React.Component<Props, State> {
                                 <div className="row">
                                     <div className="col-3">
                                         <div className={styles.imageContainer}>
-                                            <img src={user.profilePictureUrl || 'http://www.ieeeaustsb.org/files/2017/05/placeholder-male-square.png'} className={styles.image}/>
+                                            <img
+                                                src={user.profilePictureUrl || 'http://www.ieeeaustsb.org/files/2017/05/placeholder-male-square.png'}
+                                                className={styles.image}
+                                                alt="avatar"
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-9 margin-top-lg">

@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -22,7 +24,7 @@ import Login from './components/login/Login';
 import * as serviceWorker from './serviceWorker';
 import { parseJwt } from './utils';
 
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL = 'http://172.18.0.4:8080/jobunja/';
 const jwt = localStorage.getItem('jwt-token');
 if (jwt) {
     const parsedJwt = parseJwt(jwt);

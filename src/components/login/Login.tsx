@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 import React, { FormEvent } from 'react';
 import axios from 'axios';
 import qs from 'querystring';

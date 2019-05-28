@@ -4,9 +4,8 @@ import { toast } from 'react-toastify';
 
 import styles from './Project.module.css';
 
-import { persianNumberHumanize } from 'src/utils';
+import { persianNumberHumanize } from '../../utils';
 import SkillBox from '../common/SkillBox';
-import User from '../user/User';
 
 class Project extends React.Component<Props, State> {
 
@@ -96,6 +95,7 @@ class Project extends React.Component<Props, State> {
                                             <img
                                                 className={styles.projectImg}
                                                 src={project.imageUrl}
+                                                alt="project"
                                             />
                                         </div>
                                         <div className="col-9">

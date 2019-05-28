@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './HomeProjectBox.module.css';
 
-import { persianNumberHumanize } from 'src/utils';
+import { persianNumberHumanize } from '../../utils';
 
 class HomeProjectBox extends React.Component<Props> {
 
@@ -23,7 +23,7 @@ class HomeProjectBox extends React.Component<Props> {
             >
                 <div className="d-flex">
                     <div>
-                        <img src={project.imageUrl} className={styles.image} />
+                        <img src={project.imageUrl} className={styles.image} alt="project" />
                     </div>
                     <div className={styles.projectInfo}>
                         <h5>

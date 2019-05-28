@@ -1,10 +1,12 @@
+/* eslint-disable no-restricted-globals */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import headerLogo from '../../assets/logo/logo v1.png';
 
 import styles from './Header.module.css';
-import { parseJwt } from 'src/utils';
+import { parseJwt } from '../../utils';
 
 class Header extends React.Component<Props> {
 
@@ -31,10 +33,10 @@ class Header extends React.Component<Props> {
                         <div className="col-6">
                             {loggedIn ? (
                                 <Link to="/">
-                                    <img src={headerLogo} className={styles.logo} />
+                                    <img src={headerLogo} className={styles.logo} alt="logo" />
                                 </Link>
                             ) : (
-                                <img src={headerLogo} className={styles.logo} />
+                                <img src={headerLogo} className={styles.logo} alt="logo" />
                             )}
                         </div>
                         <div className="col-6 text-left d-flex align-items-center justify-content-end">
