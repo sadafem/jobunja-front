@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: jobunja-front-service
+spec:
+  type: NodePort
+  selector:
+    app: jobunja-front
+  ports:
+    - protocol: TCP
+      port: 3000
+      nodePort: 31200

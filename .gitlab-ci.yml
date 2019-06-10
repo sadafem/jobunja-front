@@ -1,0 +1,35 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  REGISTRY: quay.io/alimo/jobunja-front
+  REGISTRY_USER: alimo
+  REGISTRY_PASS: 7ctrjzmdw1Q/6GryTWG+ZJ9ta1rzIsVr0DdymnJwmbMKgA7OfelYx78/2mzZOSFc
+  CONTAINER_NAME: $CI_BUILD_ID
+  CURRENT_IMAGE: $REGISTRY:$CI_COMMIT_REF_NAME
+  LATEST_IMAGE: $REGISTRY:latest
+
+before_script:
+  - docker login -u $REGISTRY_USER -p $REGISTRY_PASS $REGISTRY
+
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  script:
+    - docker build -t jjtest -f dockerfile-test .
+    - docker run -t jjtest sh -c 'npm test'
+
+build:
+  stage: build
+  script:
+    - docker build -t $CURRENT_IMAGE .
+    - docker push $CURRENT_IMAGE
+  after_script:
+    - docker rm -f $CONTAINER_NAME
+  only:
+    - master

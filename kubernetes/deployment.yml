@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobunja-front
+  labels:
+    app: jobunja-front
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jobunja-front
+  template:
+    metadata:
+      labels:
+        app: jobunja-front
+    spec:
+      containers:
+        - name: jobunja-front
+          image: quay.io/alimo/jobunja-front
+          resources:
+            limits:
+              memory: 300Mi
+              cpu: 0.2
+            requests:
+              memory: 150Mi
+              cpu: 0.1
+          ports:
+            - containerPort: 3000
